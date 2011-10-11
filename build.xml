@@ -1,0 +1,39 @@
+<project name="UDP Tracker" default="jar" basedir=".">
+	<property name="app.name" value="udptracker"/>
+
+	<property name="src.dir" value="src"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="classes.dir" value="build/classes"/>
+	<property name="jar.dir" value="build/jar"/>
+	<property name="config.dir" value="config"/>
+
+	<property name="main-class" value="su.lafayette.udptracker.Server"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+		<copy file="${config.dir}/log4j.xml" todir="${classes.dir}"/>
+		<copy file="${config.dir}/config.xml" todir="${classes.dir}"/>
+    </target>
+
+	<target name="jar" depends="compile">
+		<jar jarfile="${jar.dir}/${app.name}.jar" basedir="${classes.dir}"/>
+	</target>
+
+    <target name="run" depends="jar">
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${app.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+</project>

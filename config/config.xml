@@ -1,0 +1,15 @@
+<config>
+	<listen>
+		<host>127.0.0.1</host>
+		<port>8081</port>
+	</listen>
+
+	<database>
+		<host>192.168.0.102</host>
+		<port>27017</port>
+		<databaseName>udptracker</databaseName>
+	</database>
+
+	<maxNumWant>100</maxNumWant>
+	<interval>60</interval>
+</config>
